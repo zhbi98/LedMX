@@ -18,7 +18,7 @@ LED控制软件框架，可以十分方便地管理设备各个 LED 的状态，
 ## 使用
 
 使用前初始化函数 `led_dev_register`，把 LED 灯控制 IO 注册到 ledMX。
-需要实现写入IO状态的函数，然后初始化结构体的 `pfnLedCtrl`即可。
+需要实现写入IO状态的函数，然后初始化结构体的 `led_refer_t`即可。
 
 周期调用函数 `led_dev_task_handler` 和 `led_dev_tick_inc` 入参为毫秒级的系统时长，用来具体控制 LED 状态时间
 调用相关函数设置灯光效果，不支持重复调用，重复调用设置函数相关信息会复位
@@ -63,9 +63,9 @@ void led_anim_start()
 
 ```
 
-## 执行
+## Tick 任务
 
-在 RTOS 中为 ledMX 创建 Tick 处理任务。
+如果使用 RTOS 可以在 RTOS 中为 ledMX 创建 Tick 处理任务。
 
 ```c
 void LedTask(void)
@@ -104,7 +104,7 @@ int main(void)
 }
 ```
 
-## 设置
+## API 应用
 
 执行下方 example 函数就可以让 led 闪烁 3 次后熄灭。
 
